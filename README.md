@@ -1,4 +1,3 @@
-### Hi there 👋
 <picture decoding="async" loading="lazy">
   <source media="(prefers-color-scheme: light)" srcset="https://pixel-profile-two.vercel.app/api/github-stats?username=LouisShark&theme=summer">
   <source media="(prefers-color-scheme: dark)" srcset="https://pixel-profile-two.vercel.app/api/github-stats?username=LouisShark&theme=monica">
