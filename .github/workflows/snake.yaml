@@ -19,9 +19,10 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: checkout latest
+      - name: checkout latest content from main branch
         uses: actions/checkout@v3
-      # generates a snake game from a github user (<github_user_name>) contributions graph, output a svg animation at <svg_out_path>
+        # This checks out the content of the branch that triggered the workflow (e.g., main)
+
       - name: generate github-contribution-grid-snake.svg
         uses: Platane/snk/svg-only@v3.2.0
         with:
@@ -29,21 +30,33 @@ jobs:
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            # Add any other output files here, like an index.html if you want a GH Pages site
+            # dist/index.html
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN for snk to fetch contribution data
 
-      - name: copy README to dist
-        run: cp README.md dist/
+      # The following steps copy files to the 'dist' directory.
+      # The crazy-max/ghaction-github-pages action will then deploy the *entire* 'dist' directory
+      # to become the root of your 'target_branch'.
+      # Consider if you truly want these on your 'output' branch.
+      # If you only want the SVGs on the 'output' branch, you might remove these 'cp' steps
+      # and ensure only SVGs are in 'dist', or configure 'build_dir' more specifically.
 
-      - name: copy workflow to dist
-        run: cp -r .github dist/
+      # Optional: If you want a copy of your main README in the output branch
+      # - name: copy README to dist
+      #   run: cp README.md dist/
 
-      # push the content of <build_dir> to a branch
-      # the content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file> , or as github page
-      - name: push github-contribution-grid-snake.svg to the output branch
+      # Optional: It's unlikely you want to copy your .github workflows to the output branch
+      # - name: copy workflow to dist
+      #   run: cp -r .github dist/
+
+      - name: push generated content to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
-          target_branch: main
+          target_branch: output
           build_dir: dist
+          # keep_history: true    # Optional: Set to true if you want to add to the output branch's history.
+                                  # Default is false when target_branch is different from the current branch,
+                                  # meaning the output branch will be overwritten each time.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
