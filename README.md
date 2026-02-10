@@ -7,7 +7,7 @@
 
 ### Skills
 
-<img src="https://github-readme-stats.vercel.app/api?username=LouisShark&show_icons=true&theme=transparent" style="float:right;">
+<img src="https://github-stats-extended.vercel.app/api?username=LouisShark&show=reviews,discussions_started,discussions_answered,prs_merged,prs_merged_percentage,prs_commented,prs_reviewed,issues_commented&show_icons=true&include_all_commits=true&theme=solarized-light" style="float:right;">
 
 ![Go](https://img.shields.io/badge/-Go-666?&logo=go)
 ![Python](https://img.shields.io/badge/-Python-666?&logo=python)
